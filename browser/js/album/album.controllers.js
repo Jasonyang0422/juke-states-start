@@ -2,17 +2,24 @@
 
 /* ALBUMS (SINGULAR) CONTROLLER */
 
-juke.controller('AlbumCtrl', function ($scope, $log, PlayerFactory, AlbumFactory) {
+juke.controller('AlbumCtrl', function ($scope, $log, $stateParams, album, PlayerFactory, AlbumFactory) {
 
-  $scope.$on('viewSwap', function (event, data) {
-    if (data.name !== 'oneAlbum') return $scope.showMe = false;
-    $scope.showMe = true;
-    AlbumFactory.fetchById(data.id)
-    .then(function (album) {
-      $scope.album = album;
-    })
-    .catch($log.error);
-  });
+  // $scope.$on('viewSwap', function (event, data) {
+  //   if (data.name !== 'oneAlbum') return $scope.showMe = false;
+  //   $scope.showMe = true;
+  //   AlbumFactory.fetchById(data.id)
+  //   .then(function (album) {
+  //     $scope.album = album;
+  //   })
+  //   .catch($log.error);
+  // });
+
+  $scope.album = album;
+  // AlbumFactory.fetchById($stateParams.id)
+  //   .then(function (album) {
+  //     $scope.album = album;
+  //   })
+  //   .catch($log); 
 
   // main toggle
   $scope.toggle = function (song) {
@@ -37,7 +44,7 @@ juke.controller('AlbumCtrl', function ($scope, $log, PlayerFactory, AlbumFactory
 
 /* ALBUMS (PLURAL) CONTROLLER */
 
-juke.controller('AlbumsCtrl', function ($scope, $log, $rootScope, PlayerFactory, AlbumFactory) {
+juke.controller('AlbumsCtrl', function ($scope, $log, $rootScope, albums, PlayerFactory, AlbumFactory) {
 
   $scope.showMe = true;
 
@@ -45,14 +52,15 @@ juke.controller('AlbumsCtrl', function ($scope, $log, $rootScope, PlayerFactory,
     $scope.showMe = (data.name === 'allAlbums');
   });
 
-  $scope.viewOneAlbum = function (album) {
-    $rootScope.$broadcast('viewSwap', { name: 'oneAlbum', id: album._id });
-  };
+  // $scope.viewOneAlbum = function (album) {
+  //   $rootScope.$broadcast('viewSwap', { name: 'oneAlbum', id: album._id });
+  // };
 
-  AlbumFactory.fetchAll()
-  .then(function (albums) {
-    $scope.albums = albums;
-  })
-  .catch($log.error); // $log service can be turned on and off; also, pre-bound
+  $scope.albums = albums;
+  // AlbumFactory.fetchAll()
+  // .then(function (albums) {
+  //   $scope.albums = albums;
+  // })
+  // .catch($log.error); // $log service can be turned on and off; also, pre-bound
 
 });
